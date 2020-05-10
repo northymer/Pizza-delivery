@@ -1,0 +1,15 @@
+@import '../../theme/variables.scss';
+
+.cart {
+  &__total {
+    width: $container-width-small;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+    &_value {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

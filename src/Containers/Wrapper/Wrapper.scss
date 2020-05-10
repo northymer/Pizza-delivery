@@ -1,0 +1,11 @@
+@import "../../theme/variables.scss";
+
+.wrapper {
+  &-content {
+    padding: 30px 0;
+    margin-top: $header-height;
+    max-width: $container-width;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

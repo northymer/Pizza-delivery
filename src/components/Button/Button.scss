@@ -1,0 +1,21 @@
+@import "../../theme/variables.scss";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 30px;
+  padding: 6px 12px;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: #ff6d3a;
+  text-decoration: none;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+  }
+}

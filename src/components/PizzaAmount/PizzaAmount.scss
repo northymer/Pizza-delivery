@@ -1,0 +1,13 @@
+.pizza-amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__number {
+    text-align: center;
+    width: 40px;
+  }
+  &__button {
+    width: 40px;
+    border-radius: 100%;
+  }
+}

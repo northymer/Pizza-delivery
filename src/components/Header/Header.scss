@@ -1,0 +1,49 @@
+@import "../../theme/variables.scss";
+
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: $header-height;
+    background-color: $color-business-main;
+    &__logo {
+        &_link {
+            border-radius: 6px;
+            padding: 6px;
+            background-color: #fff;
+            height: calc(100% - 24px);
+        }
+        &_img {
+            height: 100%;
+            > img {
+                height: 100%;
+            }
+        }
+    }
+    &__content {
+        display: flex;
+        align-items: center;
+        width: $container-width;
+        margin: 0 auto;
+        height: 100%;
+        justify-content: space-between;
+    }
+}
+
+.cart {
+    &-icon {
+        position: relative;
+    }
+    &-indicator {
+        position: absolute;
+        bottom: -2px;
+        right: -10px;
+        width: 22px;
+        height: 22px;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 100%;
+    }
+}
