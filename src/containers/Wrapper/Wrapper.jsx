@@ -1,14 +1,14 @@
 import React from 'react'
-import Header from "../../components/Header/Header";
+import Header from '../../components/Header/Header'
 import './Wrapper.scss'
 
 export const Wrapper = ({children}) => {
     return (
-        <React.Fragment>
+        <div className='wrapper'>
             <Header />
             <div className='wrapper-content'>
                 {children}
             </div>
-        </React.Fragment>
+        </div>
     )
 }

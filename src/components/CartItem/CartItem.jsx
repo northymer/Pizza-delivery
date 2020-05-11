@@ -1,7 +1,9 @@
 import React from 'react'
-import {PizzaAmount} from "../PizzaAmount/PizzaAmount";
+import {PizzaAmount} from '../PizzaAmount/PizzaAmount'
+import {getTitleItem} from '../../utils/helperItems'
+import {rounded} from '../../utils/helperItems'
+
 import './CartItem.scss'
-import {Button} from "../Button/Button";
 
 export const CartItem = (props) => {
     const {
@@ -14,22 +16,24 @@ export const CartItem = (props) => {
         amount,
         price,
         id,
+        composition,
+        type
     } = item
-    const summPrice = price * amount
+    const summPrice = rounded(price * amount)
     return (
         <div className='cartItem'>
-            <div className='cartItem__content'>
-                <div className='cartItem__img'>
-                    <img src={image} />
-                </div>
-                <p className='cartItem__content_name'>{name}</p>
-            </div>
-            <div>
-                <PizzaAmount amount={amount} onChange={(nextAmount) => changeAmountOfItem(id, nextAmount)} />
-            </div>
-            <div className='cartItem__content_price'>
-                    <p>{summPrice} Eu</p>
-            </div>
+          <div className='cartItem-col cartItem__img'>
+            <img src={image} alt={name} className='img-fluid'/>
+          </div>
+          <div className='cartItem-col cartItem__name'>
+            <p className='cartItem__name-title'>{getTitleItem(type) + ' ' + name}</p>
+            <p className='cartItem__name-composition'>{composition}</p>
+          </div>
+          <div className='cartItem-col cartItem__price'><span>{price} Eu</span></div>
+          <div className='cartItem-col cartItem__amount'>
+              <PizzaAmount amount={amount} onChange={(nextAmount) => changeAmountOfItem(id, nextAmount)} />
+          </div>
+          <div className='cartItem-col cartItem__price-total'><span>{summPrice}</span></div>
         </div>
     )
 }

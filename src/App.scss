@@ -1,1 +1,56 @@
-@import "./theme/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+@import "theme/variables";
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/code";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/forms";
+@import "../node_modules/bootstrap/scss/custom-forms";
+@import "../node_modules/bootstrap/scss/utilities/spacing";
+
+@import "theme/custom-mixins";
+
+.title-section {
+  margin-bottom: 36px;
+  font-size: 2.25rem;
+  @include media-breakpoint-down(lg) {
+    font-size: 2rem;
+  }
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 26px;
+    font-size: 1.75rem;
+  }
+}
+.title-section-min {
+  margin-bottom: 20px;
+  font-size: 1.65rem;
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 16px;
+    font-size: 1.45rem;
+  }
+}
+
+.col-margin-bottom {
+  margin-bottom: $grid-gutter-width;
+  @include media-breakpoint-down(sm) {
+    margin-bottom: $grid-gutter-width-min;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .row {
+    @include make-row($grid-gutter-width-min);
+  }
+  .col,
+  [class*="col-"] {
+    padding-right: $grid-gutter-width-min / 2;
+    padding-left: $grid-gutter-width-min / 2;
+  }
+}
+

@@ -1,8 +1,9 @@
 import React from 'react'
-import './PizzaCard.scss'
-import { Button } from "../Button/Button";
-import { PizzaAmount } from "../PizzaAmount/PizzaAmount";
+import { Button } from '../Button/Button'
+import { PizzaAmount } from '../PizzaAmount/PizzaAmount'
+import {getTitleItem} from '../../utils/helperItems'
 
+import './PizzaCard.scss'
 
 export const PizzaCard = ({ item, amount, addItemToCart, changeAmountOfItem }) => {
     const {
@@ -10,6 +11,8 @@ export const PizzaCard = ({ item, amount, addItemToCart, changeAmountOfItem }) =
         image,
         name,
         price,
+        type,
+        composition
     } = item
     const handleAddToCart = () => {
         addItemToCart(item)
@@ -17,20 +20,26 @@ export const PizzaCard = ({ item, amount, addItemToCart, changeAmountOfItem }) =
     const handleChangeAmountOfItems = (nextAmount) => {
         changeAmountOfItem(id, nextAmount)
     }
+
     return (
-        <div className='Pizza-card'>
-            <div className='Pizza-card__image'>
-                <img src={image} alt='#'/>
+      <div className='Pizza-card col-xxl-3 col-lg-4 col-sm-6 col-12 col-margin-bottom'>
+        <div className='Pizza-card__wrap'>
+            <div className="Pizza-card__top">
+                <div className='Pizza-card__image'>
+                    <img src={image} alt='#' className='img-fluid'/>
+                </div>
+                <h3 className='Pizza-card__title Pizza-card__padding'>
+                    <span className='Pizza-card__title-wrap'>{getTitleItem(type) + ' ' + name}</span>
+                </h3>
+                <p className='Pizza-card__composition Pizza-card__padding'>{composition}</p>
             </div>
-            <div>
-                {name}
-            </div>
-            <div className='Pizza-card__bottom'>
-                <p>{price} EU</p>
+            <div className='Pizza-card__bottom Pizza-card__padding'>
+                <p className='Pizza-card__price'>{price} EU</p>
                 {amount
                     ? <PizzaAmount amount={amount} onChange={handleChangeAmountOfItems} />
                     : <Button onClick={handleAddToCart}>Add to cart</Button>}
             </div>
         </div>
+      </div>
     )
 }

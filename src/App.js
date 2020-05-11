@@ -1,12 +1,23 @@
-import React from 'react';
-import './App.scss';
+import React, {useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import MainPage from "./pages/MainPage/MainPage";
-import CartPage from "./pages/CartPage/CartPage";
-import { Wrapper } from "./Containers/Wrapper/Wrapper";
-import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import MainPage from './pages/MainPage/MainPage'
+import CartPage from './pages/CartPage/CartPage'
+import { Wrapper } from './containers/Wrapper/Wrapper'
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
+import {useSelector} from 'react-redux'
+import {setLocalstorage} from './redux/helpers'
+
+import './App.scss'
 
 function App() {
+
+  const cart = useSelector(state => state.cart)
+
+  useEffect(() => {
+    localStorage.removeItem('cart')
+    setLocalstorage('cart', cart)
+  }, [cart])
+
   return (
     <div className="App">
         <BrowserRouter>
@@ -16,7 +27,7 @@ function App() {
                         <MainPage />
                     </Route>
                     <Route path="/checkout">
-                        <CheckoutPage />
+                        <CheckoutPage cart={cart} />
                     </Route>
                     <Route exact path="/cart">
                         <CartPage />
@@ -25,7 +36,7 @@ function App() {
             </Switch>
         </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App

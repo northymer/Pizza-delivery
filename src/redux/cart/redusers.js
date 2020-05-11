@@ -1,7 +1,10 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CHANGE_AMOUNT_IN_CART } from "./actions"
+import { ADD_TO_CART, REMOVE_FROM_CART, CHANGE_AMOUNT_IN_CART } from './actions'
+import {getLocalstorage, setLocalstorage} from '../helpers'
+
+const localstorage = getLocalstorage('cart')
 
 const initialState = {
-    cart: []
+    cart: localstorage || []
 }
 
 const handlers = {
@@ -10,7 +13,7 @@ const handlers = {
         cart: [...state.cart, {
             ...item,
             amount: 1
-        }]
+        }],
     }),
     [REMOVE_FROM_CART]: (state, { id }) => ({
         ...state,

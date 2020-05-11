@@ -1,14 +1,19 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import {addToCart, changeAmountInCart, removeFromCart} from "../../redux/cart/actions";
-import {CartItem} from "../../components/CartItem/CartItem";
+import {connect} from 'react-redux'
+
+import {addToCart, changeAmountInCart, removeFromCart} from '../../redux/cart/actions'
+import {CartItem} from '../../components/CartItem/CartItem'
+import {Button} from '../../components/Button/Button'
+import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
+import {rounded} from '../../utils/helperItems'
+
 import './CartPage.scss'
-import {Button} from "../../components/Button/Button";
+
 
 const CartPage = (props) => {
+
     const {
         cart,
-        addItemToCart,
         removeItemFromCart,
         changeAmountOfItem
     } = props
@@ -22,29 +27,40 @@ const CartPage = (props) => {
     }
 
     if (!cart.length) {
-        return <div style={{display: 'flex', flex: '1'}}>Cart is empty</div>
+        return <div className='container'>
+            <ContainerBg>
+                Cart is empty
+            </ContainerBg>
+        </div>
     }
 
-    const totalPrice = cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0)
+    const totalPrice = rounded(cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0))
 
     return (
-        <div>
-            {
-                cart.map(item => (
-                    <CartItem
-                        item={item}
-                        changeAmountOfItem={handleChangeAmountOfItems}
-                    />
-                ))
-            }
-            {!!cart.length &&
-                <div className='cart__total'>
-                    <div>
-                        <p className='cart__total_value'>Total: {totalPrice} Eu</p>
-                        <Button link="/checkout">Proceed to checkout</Button>
-                    </div>
-                </div>
-            }
+        <div className='cart'>
+            <ContainerBg>
+                <h1 className='title-section'>Cart</h1>
+                <>
+                    {
+                        cart.map(item => (
+                            <CartItem
+                                key={item.id}
+                                item={item}
+                                changeAmountOfItem={handleChangeAmountOfItems}
+                            />
+                        ))
+                    }
+                    {!!cart.length &&
+                        <div className='cart-total'>
+                            <div className='cart-total__wrap'>
+                                <p className='cart-total__value'>
+                                    <span>Total: <b>{totalPrice} Eu</b></span></p>
+                                <Button link="/checkout">Proceed to checkout</Button>
+                            </div>
+                        </div>
+                    }
+                </>
+            </ContainerBg>
         </div>
     )
 }
@@ -54,7 +70,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addItemToCart: (item) => dispatch(addToCart(item)),
     removeItemFromCart: (id) => dispatch(removeFromCart(id)),
     changeAmountOfItem: (id, amount) => dispatch(changeAmountInCart(id, amount))
 })

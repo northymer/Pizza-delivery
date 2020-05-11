@@ -1,4 +1,4 @@
-@import "../../theme/variables.scss";
+@import "../../theme/variables";
 
 .header {
     width: 100%;
@@ -8,24 +8,33 @@
     left: 0;
     height: $header-height;
     background-color: $color-business-main;
+    z-index: 10;
+    .icon-cart {
+        fill: #fff;
+        width: 32px;
+        height: 32px;
+        stroke: #fff;
+        stroke-width: 10px;
+    }
     &__logo {
-        &_link {
-            border-radius: 6px;
-            padding: 6px;
-            background-color: #fff;
-            height: calc(100% - 24px);
-        }
-        &_img {
-            height: 100%;
-            > img {
-                height: 100%;
+        &-link {
+            color: #fff;
+            font-size: 28px;
+            letter-spacing: 5px;
+            text-decoration: none !important;
+            span {
+                color: #9e2500;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+            &:hover {
+                color: #fff;
             }
         }
     }
     &__content {
         display: flex;
         align-items: center;
-        width: $container-width;
         margin: 0 auto;
         height: 100%;
         justify-content: space-between;
@@ -38,12 +47,15 @@
     }
     &-indicator {
         position: absolute;
-        bottom: -2px;
-        right: -10px;
+        bottom: -3px;
+        right: -5px;
         width: 22px;
         height: 22px;
         text-align: center;
         background-color: #fff;
         border-radius: 100%;
+        font-size: 12px;
+        color: $color-font;
+        line-height: 22px;
     }
 }
