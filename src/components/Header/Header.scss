@@ -9,12 +9,34 @@
     height: $header-height;
     background-color: $color-business-main;
     z-index: 10;
-    .icon-cart {
+    &__auth {
+        color: #fff;
+        display: flex;
+        align-items: flex-end;
+        > p {
+            > a {
+                color: #fff;
+            }
+            margin: 0;
+            > span {
+                cursor: pointer;
+            }
+        }
+    }
+    &__icons {
+        align-items: flex-end;
+        display: flex;
+    }
+    .icon {
         fill: #fff;
         width: 32px;
         height: 32px;
         stroke: #fff;
         stroke-width: 10px;
+        margin-left: 30px;
+        &-cart {
+            position: relative;
+        }
     }
     &__logo {
         &-link {

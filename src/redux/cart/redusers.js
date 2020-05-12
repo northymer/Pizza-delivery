@@ -1,7 +1,7 @@
 import { ADD_TO_CART, REMOVE_FROM_CART, CHANGE_AMOUNT_IN_CART } from './actions'
 import {getLocalstorage, setLocalstorage} from '../helpers'
 
-const localstorage = getLocalstorage('cart')
+const localstorage = getLocalstorage('cart') ? getLocalstorage('cart') : []
 
 const initialState = {
     cart: localstorage || []

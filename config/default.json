@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "jwtSecret" : "conskirilin pizza",
+  "mongoUri": "mongodb+srv://conskirilin:jmg11khm@cluster0-neiuq.azure.mongodb.net/app?retryWrites=true&w=majority"
+}

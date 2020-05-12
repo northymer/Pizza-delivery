@@ -6,10 +6,11 @@ import './CheckoutPage.scss'
 import {Button} from '../../components/Button/Button'
 import {Radio} from '../../components/Form/Radio'
 import {Select} from '../../components/Form/Select'
+import {useSelector} from "react-redux";
 
 
 const CheckoutPage = (props) => {
-  const {cart} = props
+  const cart = useSelector(state => state.cart.cart)
   const [delivery, setDelivery] = useState('delivery')
   const [inTime, setInTime] = useState('possible')
   const [payment, setPayment] = useState('cash')

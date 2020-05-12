@@ -8,10 +8,10 @@ import {useSelector} from 'react-redux'
 import {setLocalstorage} from './redux/helpers'
 
 import './App.scss'
+import AuthPage from "./pages/AuthPage/AuthPage";
 
 function App() {
-
-  const cart = useSelector(state => state.cart)
+  const cart = useSelector(state => state.cart.cart)
 
   useEffect(() => {
     localStorage.removeItem('cart')
@@ -27,10 +27,13 @@ function App() {
                         <MainPage />
                     </Route>
                     <Route path="/checkout">
-                        <CheckoutPage cart={cart} />
+                        <CheckoutPage />
                     </Route>
                     <Route exact path="/cart">
                         <CartPage />
+                    </Route>
+                    <Route exact path="/auth/:authMethod">
+                        <AuthPage/>
                     </Route>
                 </Wrapper>
             </Switch>

@@ -66,7 +66,7 @@ const CartPage = (props) => {
 }
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart.cart
 })
 
 const mapDispatchToProps = dispatch => ({
