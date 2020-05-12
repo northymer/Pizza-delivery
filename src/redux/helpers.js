@@ -1,4 +1,4 @@
-export const actionGenerator = (type, payload) => ({ type, payload })
+export const actionGenerator = (type, payload = {}) => ({ type, payload })
 
 export const getLocalstorage = (key) => {
   try {
@@ -15,5 +15,5 @@ export const getLocalstorage = (key) => {
 export const setLocalstorage = (key, item) => {
   try {
     localStorage.setItem(key, JSON.stringify(item))
-  } catch {}
+  } catch (e){}
 }

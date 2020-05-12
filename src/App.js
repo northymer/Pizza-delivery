@@ -4,19 +4,25 @@ import MainPage from './pages/MainPage/MainPage'
 import CartPage from './pages/CartPage/CartPage'
 import { Wrapper } from './containers/Wrapper/Wrapper'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {setLocalstorage} from './redux/helpers'
 
 import './App.scss'
 import AuthPage from "./pages/AuthPage/AuthPage";
+import {userCheckAuth} from "./redux/user/actions";
 
 function App() {
   const cart = useSelector(state => state.cart.cart)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     localStorage.removeItem('cart')
     setLocalstorage('cart', cart)
   }, [cart])
+
+  useEffect(() => {
+      dispatch(userCheckAuth())
+  }, [])
 
   return (
     <div className="App">

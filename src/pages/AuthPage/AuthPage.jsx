@@ -5,18 +5,23 @@ import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
 import {InputText} from "../../components/Form/InputText";
 import { useParams } from 'react-router-dom'
 import './AuthPage.scss'
-import {userRegister} from "../../redux/user/actions";
+import {userLogin, userRegister} from "../../redux/user/actions";
 import { compose } from 'ramda'
 import RegisterUserContainer from "../../containers/RegisterUserContainer/RegisterUserContainer";
+import LoginUserContainer from "../../containers/RegisterUserContainer/LoginUserContainer";
 
 const AuthPage = (props) => {
     const { authMethod } = useParams()
     const isLogin = authMethod === 'login'
-    const handleSubmit = (data) => {
-        if (isLogin) {
-
-        } else {
-            props.userRegister(data)
+    const handleSubmit = async (data) => {
+        try {
+            if (isLogin) {
+                await props.userLogin(data)
+            } else {
+                await props.userRegister(data)
+            }
+        } catch (e) {
+            console.log(e)
         }
     }
     return (
@@ -24,14 +29,7 @@ const AuthPage = (props) => {
             <ContainerBg>
                 <>
                     {isLogin
-                        ? <div className="form-row form-group">
-                            <div className="col-6">
-                                <InputText title='Email' required name='login'/>
-                            </div>
-                            <div className="col-6">
-                                <InputText title='Password' required name='password' type='password'/>
-                            </div>
-                        </div>
+                        ? <LoginUserContainer onSubmit={handleSubmit} />
                         : <RegisterUserContainer onSubmit={handleSubmit} />
                     }
 
@@ -44,7 +42,8 @@ const AuthPage = (props) => {
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = dispatch => ({
-    userRegister: (data) => dispatch(userRegister(data))
+    userRegister: (data) => dispatch(userRegister(data)),
+    userLogin: (data) => dispatch(userLogin(data))
 })
 
 export default compose(

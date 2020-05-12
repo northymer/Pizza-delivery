@@ -1,5 +1,4 @@
 import React from 'react'
-import { Field } from 'redux-form'
 
 export const InputText = (props) => {
   const {
@@ -16,7 +15,7 @@ export const InputText = (props) => {
       <label htmlFor={name}>{title}</label>
       <input
           value={value}
-          onChange={event => onChange(event.target.value)}
+          onChange={event => onChange(event)}
           type={type}
           className="form-control"
           id={name}

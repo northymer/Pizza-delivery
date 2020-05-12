@@ -43,7 +43,7 @@ router.post(
 
         res.setHeader('Access-Control-Allow-Origin', '*')
 
-        res.status(201).json({ message: 'User is created' })
+        res.status(201).json({ message: 'User is created', userId: user.id })
 
     } catch (e) {
         console.log(e)
