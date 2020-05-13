@@ -4,7 +4,12 @@ import {
     CHANGE_AMOUNT_IN_CART,
     USER_LOGIN,
     USER_REGISTER,
-    USER_GET_ORDERS, USER_LOGIN_SUCCEEDED, USER_REGISTER_SUCCEEDED, USER_LOGOUT
+    USER_GET_ORDERS,
+    USER_LOGIN_SUCCEEDED,
+    USER_REGISTER_SUCCEEDED,
+    USER_LOGOUT_SUCCEEDED,
+    USER_GET_ORDERS_SUCCEEDED,
+    USER_PLACE_ORDER_SUCCEEDED
 } from './actions'
 import {getLocalstorage, setLocalstorage} from '../helpers'
 
@@ -14,6 +19,7 @@ const initialState = {
     loading: false,
     error: null,
     user: null,
+    token: null,
     orderList: []
 }
 
@@ -22,25 +28,34 @@ const handlers = {
         ...state,
         loading: true,
     }),
-    [USER_LOGIN_SUCCEEDED]: (state, action) => ({
+    [USER_LOGIN_SUCCEEDED]: (state, { userId, token, name, email }) => ({
         ...state,
-        user: action.userId,
+        user: {
+            userId,
+            name,
+            email,
+        },
+        token,
         loading: false,
     }),
     [USER_REGISTER]: (state, { id }) => ({
         ...state,
         loading: true,
     }),
-    [USER_REGISTER_SUCCEEDED]: (state, { userId, message }) => ({
+    [USER_REGISTER_SUCCEEDED]: (state, { message }) => ({
         ...state,
-        user: userId,
         loading: false,
     }),
-    [USER_GET_ORDERS]: (state, { id, amount }) => ({
+    [USER_GET_ORDERS_SUCCEEDED]: (state, { orders }) => ({
         ...state,
-        cart: state.cart.map(item => item.id === id ? {...item, amount} : item)
+        orderList: orders,
     }),
-    [USER_LOGOUT]: () => ({...initialState}),
+    [USER_PLACE_ORDER_SUCCEEDED]: (state) => ({
+        ...state
+    }),
+    [USER_LOGOUT_SUCCEEDED]: () => {
+        return {...initialState}
+        },
     DEFAULT: state => state
 }
 

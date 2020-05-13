@@ -27,7 +27,7 @@ const LoginUserContainer = ({onSubmit}) => {
                 </div>
             </div>
             <div className='auth__button'>
-                <Button onClick={handleSubmit}>Register</Button>
+                <Button onClick={handleSubmit}>Login</Button>
             </div>
             {error &&
             <div>{error}</div>

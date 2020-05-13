@@ -13,6 +13,8 @@ import {userCheckAuth} from "./redux/user/actions";
 
 function App() {
   const cart = useSelector(state => state.cart.cart)
+  const userId = useSelector(state => state.user.user)
+    console.log(userId)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -22,7 +24,10 @@ function App() {
 
   useEffect(() => {
       dispatch(userCheckAuth())
+      if (userId) {}
   }, [])
+
+    console.log(window.location)
 
   return (
     <div className="App">

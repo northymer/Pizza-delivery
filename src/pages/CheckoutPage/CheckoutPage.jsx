@@ -6,14 +6,30 @@ import './CheckoutPage.scss'
 import {Button} from '../../components/Button/Button'
 import {Radio} from '../../components/Form/Radio'
 import {Select} from '../../components/Form/Select'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {userPutOrder} from "../../redux/user/actions";
 
 
 const CheckoutPage = (props) => {
   const cart = useSelector(state => state.cart.cart)
+  const user = useSelector(state => state.user.user)
+  const dispatch = useDispatch()
   const [delivery, setDelivery] = useState('delivery')
   const [inTime, setInTime] = useState('possible')
   const [payment, setPayment] = useState('cash')
+  console.log({user, isUser: !!user})
+  const [form, changeForm] = useState({
+    name: user ? user.name : '',
+    email: user ? user.email : '',
+  })
+  console.log(form)
+  const handleChange = (event) => {
+    changeForm({...form, [event.target.name]: event.target.value})
+  }
+
+  const handleSubmit = () => {
+    dispatch(userPutOrder({order: cart}))
+  }
 
     return (
         <div className='checkout'>
@@ -34,10 +50,10 @@ const CheckoutPage = (props) => {
                 <h2 className='title-section-min'>Contacts</h2>
                 <div className="form-row form-group">
                   <div className="col-6">
-                    <InputText title='Name' required name='name'/>
+                    <InputText onChange={handleChange} value={form.name} title='Name' required name='name'/>
                   </div>
                   <div className="col-6">
-                    <InputText title='Email' required name='email' type='email'/>
+                    <InputText onChange={handleChange} value={form.email} title='Email' required name='email' type='email'/>
                   </div>
                 </div>
                 <div className="form-row form-group">
@@ -148,11 +164,11 @@ const CheckoutPage = (props) => {
                 <div className="form-row form-group">
                   <div className="col">
                     <label htmlFor="comment">Comment</label>
-                    <textarea className="form-control" id="comment" />
+                    <textarea className="form-control" id="comment" name="comment" />
                   </div>
                 </div>
                 <div className="checkout__bottom">
-                  <Button>Order</Button>
+                  <Button onClick={handleSubmit}>Order</Button>
                 </div>
               </form>
             </ContainerBg>

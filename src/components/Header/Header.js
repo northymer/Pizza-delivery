@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom'
 import './Header.scss'
 import { ReactComponent as CartIcon } from '../../assets/icons/commerce-and-shopping.svg'
 import { ReactComponent as AuthIcon } from '../../assets/icons/social.svg'
-import { connect } from 'react-redux'
+import {connect, useDispatch, useSelector} from 'react-redux'
+import {Button} from "../Button/Button";
+import {userGetOrders, userLogout} from "../../redux/user/actions";
 
 const Header = ({cart}) => {
     const amountOfItemsInCart = cart.length
+    const user = useSelector(state => state.user.user)
+    const dispatch = useDispatch()
+    const handleGetOrders = () => dispatch(userGetOrders())
+    const handleLogout = () => dispatch(userLogout())
     return (
         <div className='header'>
             <div className='header__content container'>
@@ -15,12 +21,19 @@ const Header = ({cart}) => {
                 </Link>
                 <div className='header__icons'>
                     <div className='header__auth'>
-                        <p>
-                            <Link to="/auth/login"><span>Sign In </span></Link>
-                            /
-                            <Link to="/auth/registration"><span> Sign Up</span></Link>
-                        </p>
+                        {!user
+                            ? <p>
+                                <Link to="/auth/login"><span>Sign In </span></Link>
+                                /
+                                <Link to="/auth/registration"><span> Sign Up</span></Link>
+                            </p>
+                            : <Button onClick={handleLogout}>Logout</Button>
+                        }
                     </div>
+                    {user &&
+                    <div onClick={handleGetOrders} className='icon icon-cart'>
+                        <AuthIcon />
+                    </div>}
                     <Link to="/cart" className='icon icon-cart'>
                         <CartIcon />
                         {!!amountOfItemsInCart &&

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const config = require('config')
 const jwt = require('jsonwebtoken')
 const { check, validationResult } = require('express-validator')
-const User = require('./models/User')
+const User = require('../models/User')
 const router = Router()
 
 router.post(
@@ -43,7 +43,7 @@ router.post(
 
         res.setHeader('Access-Control-Allow-Origin', '*')
 
-        res.status(201).json({ message: 'User is created', userId: user.id })
+        res.status(201).json({ message: 'User is created' })
 
     } catch (e) {
         console.log(e)
@@ -85,7 +85,7 @@ router.post(
                 { expiresIn: '1h' }
             )
 
-            res.json({ token, userId: user.id })
+            res.json({ token, userId: user.id, name: user.name, email: user.email })
 
 
         } catch (e) {

@@ -1,3 +1,6 @@
+import {getLocalstorage} from "../redux/helpers";
+import {USER_STORAGE_KEY} from "../redux/user/sagas";
+
 const PREFIX = 'http://localhost:5000/api/'
 
 export class ApiGenerator {
@@ -40,9 +43,10 @@ export class ApiGenerator {
 }
 
 async function request(url, method = 'GET', data) {
+    const user = getLocalstorage(USER_STORAGE_KEY)
     const config = {
         method,
-        headers: ApiGenerator.HEADERS
+        headers: user ? {...ApiGenerator.HEADERS, authorization: `BEARER ${user.token}`} : ApiGenerator.HEADERS
     }
 
     if (method === 'POST' || method === 'PATCH') {
