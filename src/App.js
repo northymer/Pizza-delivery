@@ -1,15 +1,19 @@
 import React, {useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+
+import {setLocalstorage} from './redux/helpers'
+import {userCheckAuth} from './redux/user/actions'
+
 import MainPage from './pages/MainPage/MainPage'
 import CartPage from './pages/CartPage/CartPage'
 import { Wrapper } from './containers/Wrapper/Wrapper'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
-import {useDispatch, useSelector} from 'react-redux'
-import {setLocalstorage} from './redux/helpers'
+import {ProfilePage} from './pages/Profile/ProfilePage'
+import AuthPage from './pages/AuthPage/AuthPage'
+
 
 import './App.scss'
-import AuthPage from "./pages/AuthPage/AuthPage";
-import {userCheckAuth} from "./redux/user/actions";
 
 function App() {
   const cart = useSelector(state => state.cart.cart)
@@ -46,6 +50,9 @@ function App() {
                     <Route exact path="/auth/:authMethod">
                         <AuthPage/>
                     </Route>
+                  <Route exact path="/profile">
+                    <ProfilePage/>
+                  </Route>
                 </Wrapper>
             </Switch>
         </BrowserRouter>

@@ -7,8 +7,10 @@ export const Button = (props) => {
         type = 'button',
         children,
         onClick = () => {},
+        onSubmit = () => {},
         className = '',
-        link
+        link,
+        disabled = false
     } = props
     if (link) {
         return (
@@ -22,6 +24,8 @@ export const Button = (props) => {
             type={type}
             className={`button ${className}`}
             onClick={onClick}
+            onSubmit={onSubmit}
+            disabled={disabled}
         >
             {children}
         </button>

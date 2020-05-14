@@ -2,17 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Header.scss'
 import { ReactComponent as CartIcon } from '../../assets/icons/commerce-and-shopping.svg'
-import { ReactComponent as AuthIcon } from '../../assets/icons/social.svg'
 import {connect, useDispatch, useSelector} from 'react-redux'
-import {Button} from "../Button/Button";
-import {userGetOrders, userLogout} from "../../redux/user/actions";
+import {userGetOrders, userLogout} from '../../redux/user/actions'
 
 const Header = ({cart}) => {
     const amountOfItemsInCart = cart.length
     const user = useSelector(state => state.user.user)
     const dispatch = useDispatch()
-    const handleGetOrders = () => dispatch(userGetOrders())
-    const handleLogout = () => dispatch(userLogout())
+    const handleLogout = () => {
+        // localStorage.removeItem('cart')
+        // localStorage.removeItem('userData')
+        dispatch(userLogout())
+    }
     return (
         <div className='header'>
             <div className='header__content container'>
@@ -22,18 +23,16 @@ const Header = ({cart}) => {
                 <div className='header__icons'>
                     <div className='header__auth'>
                         {!user
-                            ? <p>
-                                <Link to="/auth/login"><span>Sign In </span></Link>
-                                /
-                                <Link to="/auth/registration"><span> Sign Up</span></Link>
-                            </p>
-                            : <Button onClick={handleLogout}>Logout</Button>
+                            ? <div className='header__sign'>
+                                <Link to="/auth/login" className='header__link'>Sign In</Link>
+                                <span className='header__sign-delimiter'>/</span>
+                                <Link to="/auth/registration" className='header__link'>Sign Up</Link>
+                            </div>
+                            : <button onClick={handleLogout} className='header__link'>Logout</button>
                         }
                     </div>
                     {user &&
-                    <div onClick={handleGetOrders} className='icon icon-cart'>
-                        <AuthIcon />
-                    </div>}
+                    <Link to="/profile" className='header__link'>Profile</Link>}
                     <Link to="/cart" className='icon icon-cart'>
                         <CartIcon />
                         {!!amountOfItemsInCart &&

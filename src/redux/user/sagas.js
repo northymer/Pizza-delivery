@@ -12,7 +12,7 @@ import {
     userLogin,
     userLoginSucceeded,
     userLogout,
-    userLogoutSucceeded,
+    userLogoutSucceeded, userPutOrderError,
     userPutOrderSucceeded,
     userRegisterSucceeded
 } from "./actions";
@@ -25,7 +25,7 @@ export const USER_STORAGE_KEY = 'userData'
 function* registerUser(action) {
     try {
         console.log(action)
-        debugger
+        // debugger
         const { message, userId } = yield call(apiRegisterUser, action.payload)
         yield put(userRegisterSucceeded({ message, userId }))
     } catch (e) {
@@ -70,9 +70,14 @@ function* placeUserOrder(action) {
     try {
         console.log(action)
         debugger
-        yield call(apiPutUserOrder, action.payload)
-        yield put(userPutOrderSucceeded())
-        yield put(clearCart())
+        const response = yield call(apiPutUserOrder, action.payload)
+        console.log('response', response)
+        if (!response.errors) {
+            yield put(userPutOrderSucceeded())
+        } else {
+            yield put(userPutOrderError(response.errors))
+        }
+        // yield put(clearCart())
     } catch (e) {
         console.log(e)
     }

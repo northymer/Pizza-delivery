@@ -27,10 +27,16 @@ const RegisterUserContainer = ({onSubmit}) => {
             <div className="form-row form-group">
                 <div className="col-6">
                     <InputText value={name} onChange={handleChange} title='Name' type="text" required name='name'/>
-                    <InputText value={email} onChange={handleChange} title='Email' required name='email' type='email'/>
                 </div>
                 <div className="col-6">
                     <InputText value={password} onChange={handleChange} title='Password' required name='password' type='password'/>
+                </div>
+            </div>
+            <div className="form-row form-group">
+                <div className="col-6">
+                    <InputText value={email} onChange={handleChange} title='Email' required name='email' type='email'/>
+                </div>
+                <div className="col-6">
                     <InputText value={repeatPassword} onChange={handleChange} title='Repeat Password' required name='repeatPassword' type='password'/>
                 </div>
             </div>

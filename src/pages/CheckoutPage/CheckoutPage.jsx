@@ -1,179 +1,189 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import moment from 'moment'
+
 import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
 import {getTitleItem} from '../../utils/helperItems'
 import {InputText} from '../../components/Form/InputText'
-import './CheckoutPage.scss'
 import {Button} from '../../components/Button/Button'
 import {Radio} from '../../components/Form/Radio'
 import {Select} from '../../components/Form/Select'
-import {useDispatch, useSelector} from "react-redux";
-import {userPutOrder} from "../../redux/user/actions";
+import {userClearError, userPutOrder} from '../../redux/user/actions'
+import {SectionTitle} from '../../components/SectionTitle/SectionTitle'
+import {SectionSubTitle} from '../../components/SectionSubTitle/SectionSubTitle'
+import {Loading} from '../../components/Loading/Loading'
+
+import './CheckoutPage.scss'
 
 
-const CheckoutPage = (props) => {
+
+const CheckoutPage = () => {
   const cart = useSelector(state => state.cart.cart)
   const user = useSelector(state => state.user.user)
+  const error = useSelector(state => state.user.error)
+
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   const [delivery, setDelivery] = useState('delivery')
-  const [inTime, setInTime] = useState('possible')
   const [payment, setPayment] = useState('cash')
-  console.log({user, isUser: !!user})
-  const [form, changeForm] = useState({
-    name: user ? user.name : '',
-    email: user ? user.email : '',
-  })
-  console.log(form)
+
+  const initialForm = {
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    apartment: '',
+    comment: '',
+    cart: []
+  }
+
+  const [form, setForm] = useState(initialForm)
+  // console.log(user, 'user')
   const handleChange = (event) => {
-    changeForm({...form, [event.target.name]: event.target.value})
+    setForm({...form, [event.target.name]: event.target.value})
   }
 
   const handleSubmit = () => {
-    dispatch(userPutOrder({order: cart}))
+    dispatch(userClearError())
+    dispatch(userPutOrder({form: {...form, date: moment().format('DD.MM.YYYY')}}))
+    console.log('form', form)
   }
 
-    return (
-        <div className='checkout'>
-            <ContainerBg>
-              <h1 className='title-section'>Your order:</h1>
-              <div className='checkout-order row'>
-                {cart.map(item => {
-                  return (
-                    <div className="checkout-order__item col-12  col-lg-6 col-xl-4">
-                      <img className="checkout-order__item-img checkout-order__item-col" src={item.image} alt=""/>
-                      <h3 className="checkout-order__item-title checkout-order__item-col">{getTitleItem(item.type) + ' ' + item.name}</h3>
-                      <p className="checkout-order__item-amount checkout-order__item-col">{item.amount} шт.</p>
-                    </div>
-                  )
-                })}
+  const getError = (name) => {
+    if (error && error.length !== 0) {
+      let err = error.find((item) => item.param === `form.${name}`)
+      return err ? err.msg : ''
+    }
+    return ''
+  }
+
+  useEffect(() => {
+    if (user && cart) {
+      setForm({
+        ...form,
+        name: user ? user.name : '',
+        email: user ? user.email : '',
+        cart: cart
+      })
+      setLoading(false)
+    }
+  }, [user, cart])
+
+  console.log('error', error)
+
+  if (loading) {
+    return <Loading/>
+  }
+  return (
+      <div className='checkout'>
+          <ContainerBg>
+            <SectionTitle title='Your order' />
+            <div className='checkout-order row'>
+              {cart.map((item, index) => {
+                return (
+                  <div className="checkout-order__item col-12  col-lg-6 col-xl-4" key={index}>
+                    <img className="checkout-order__item-img checkout-order__item-col" src={item.image} alt=""/>
+                    <h3 className="checkout-order__item-title checkout-order__item-col">{getTitleItem(item.type) + ' ' + item.name}</h3>
+                    <p className="checkout-order__item-amount checkout-order__item-col">{item.amount} шт.</p>
+                  </div>
+                )
+              })}
+            </div>
+            <form>
+              <SectionSubTitle title='Contacts'/>
+              <div className="form-row form-group">
+                <div className="col-6">
+                  <InputText onChange={handleChange} value={form.name} title='Name' required name='name' error={getError('name')}/>
+                </div>
+                <div className="col-6">
+                  <InputText onChange={handleChange} value={form.email} title='Email' required name='email' type='email' error={getError('email')}/>
+                </div>
               </div>
-              <form>
-                <h2 className='title-section-min'>Contacts</h2>
-                <div className="form-row form-group">
-                  <div className="col-6">
-                    <InputText onChange={handleChange} value={form.name} title='Name' required name='name'/>
-                  </div>
-                  <div className="col-6">
-                    <InputText onChange={handleChange} value={form.email} title='Email' required name='email' type='email'/>
-                  </div>
+              <div className="form-row form-group">
+                <div className="col-6">
+                  <InputText onChange={handleChange} value={form.phone} title='Phone' required name='phone' error={getError('phone')}/>
                 </div>
-                <div className="form-row form-group">
-                  <div className="col-6">
-                    <InputText title='Phone' required name='phone'/>
-                  </div>
+              </div>
+              <SectionSubTitle title='Delivery'/>
+              <div className="form-row form-group">
+                <div className="col-auto">
+                  <Radio name='delivery' title='Delivery' checked={delivery === 'delivery' ? true : false}  onClick={() => setDelivery('delivery')} />
                 </div>
-                <h2 className='title-section-min'>Delivery</h2>
-                <div className="form-row form-group">
-                  <div className="col-auto">
-                    <Radio name='delivery' title='Delivery' checked={delivery === 'delivery' ? true : false}  onClick={() => setDelivery('delivery')} />
-                  </div>
-                  <div className="col-auto">
-                    <Radio name='pickup' title='Pickup' checked={delivery === 'pickup' ? true : false}  onClick={() => setDelivery('pickup')} />
-                  </div>
+                <div className="col-auto">
+                  <Radio name='pickup' title='Pickup' checked={delivery === 'pickup' ? true : false}  onClick={() => setDelivery('pickup')} />
                 </div>
-                {delivery === 'delivery' &&
-                  <>
-                    <div className="form-row form-group">
-                      <div className="col-6">
-                        <InputText title='Address' required name='address'/>
-                      </div>
-                      <div className="col-6">
-                        <InputText title='Apartment' required name='apartment'/>
-                      </div>
+              </div>
+              {delivery === 'delivery' &&
+                <>
+                  <div className="form-row form-group">
+                    <div className="col-6">
+                      <InputText onChange={handleChange} value={form.address} title='Address' required name='address'/>
                     </div>
-                    <div className="form-row form-group">
-                      <div className="col-6">
-                        <InputText title='Floor' name='floor'/>
-                      </div>
-                      <div className="col-6">
-                        <InputText title='Porch' name='porch'/>
-                      </div>
+                    <div className="col-6">
+                      <InputText onChange={handleChange} value={form.apartment} title='Apartment' required name='apartment'/>
                     </div>
-                    <div className="form-row form-group">
-                      <div className="col-6">
-                        <Select title='Time delivery' name='timeDelivery'
-                        onClick={(event => setInTime(event.target.value))}
+                  </div>
+                  <div className="form-row form-group">
+                    <div className="col-6">
+                      <Select title='Payment' name='payment'
+                        onClick={(event => setPayment(event.target.value))}
                         required
                         options={
-                            [
-                              {
-                                value: 'possible',
-                                title: 'As soon as possible'
-                              },
-                              {
-                                value: 'inTime',
-                                title: 'In time'
-                              },
-                            ]
-                          }
-                        />
-                      </div>
-                      <div className="col-6">
-                        <Select title='Payment' name='payment'
-                          onClick={(event => setPayment(event.target.value))}
-                          required
-                          options={
-                            [
-                              {
-                                value: 'cash',
-                                title: 'Cash'
-                              },
-                              {
-                                value: 'card',
-                                title: 'Card'
-                              },
-                            ]
-                          }
-                        />
-                      </div>
+                          [
+                            {
+                              value: 'cash',
+                              title: 'Cash'
+                            },
+                            {
+                              value: 'card',
+                              title: 'Card'
+                            },
+                          ]
+                        }
+                      />
                     </div>
-                    {inTime === 'inTime' &&
-                    <div className="form-row form-group">
-                      <div className="col-6">
-                        <InputText title='Choose time' name='time' type='text'/>
-                      </div>
-                    </div>
+                  </div>
+                </>
+              }
+              {delivery === 'pickup' &&
+              <div className="form-row form-group">
+                <div className="col-6">
+                  <Select title='Choose address' name='address'
+                    onClick={(event => setPayment(event.target.value))}
+                    required
+                    options={
+                      [
+                        {
+                          value: 'adress1',
+                          title: 'Tuna street, house 2'
+                        },
+                        {
+                          value: 'adress2',
+                          title: 'Salmon street, house 98'
+                        },
+                        {
+                          value: 'adress3',
+                          title: 'Parsley street, house 34'
+                        },
+                      ]
                     }
-                  </>
-                }
-                {delivery === 'pickup' &&
-                <div className="form-row form-group">
-                  <div className="col-6">
-                    <Select title='Choose address' name='address'
-                      onClick={(event => setPayment(event.target.value))}
-                      required
-                      options={
-                        [
-                          {
-                            value: 'adress1',
-                            title: 'Tuna street, house 2'
-                          },
-                          {
-                            value: 'adress2',
-                            title: 'Salmon street, house 98'
-                          },
-                          {
-                            value: 'adress3',
-                            title: 'Parsley street, house 34'
-                          },
-                        ]
-                      }
-                    />
-                  </div>
+                  />
                 </div>
-                }
-                <div className="form-row form-group">
-                  <div className="col">
-                    <label htmlFor="comment">Comment</label>
-                    <textarea className="form-control" id="comment" name="comment" />
-                  </div>
+              </div>
+              }
+              <div className="form-row form-group">
+                <div className="col">
+                  <label htmlFor="comment">Comment</label>
+                  <textarea onChange={handleChange} value={form.comment} className="form-control" id="comment" name="comment" />
                 </div>
-                <div className="checkout__bottom">
-                  <Button onClick={handleSubmit}>Order</Button>
-                </div>
-              </form>
-            </ContainerBg>
-        </div>
-    )
+              </div>
+              <div className="checkout__bottom">
+                <Button onClick={handleSubmit} disabled={loading}>Order</Button>
+              </div>
+            </form>
+          </ContainerBg>
+      </div>
+  )
 }
 
 export default CheckoutPage

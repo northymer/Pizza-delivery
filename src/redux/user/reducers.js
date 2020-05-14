@@ -9,7 +9,8 @@ import {
     USER_REGISTER_SUCCEEDED,
     USER_LOGOUT_SUCCEEDED,
     USER_GET_ORDERS_SUCCEEDED,
-    USER_PLACE_ORDER_SUCCEEDED
+    USER_PLACE_ORDER_SUCCEEDED, USER_LOGOUT_ERROR,
+    USER_PLACE_ORDER_ERROR, USER_CLEAR_ERROR,
 } from './actions'
 import {getLocalstorage, setLocalstorage} from '../helpers'
 
@@ -52,6 +53,14 @@ const handlers = {
     }),
     [USER_PLACE_ORDER_SUCCEEDED]: (state) => ({
         ...state
+    }),
+    [USER_PLACE_ORDER_ERROR]: (state, data) => ({
+        ...state,
+        error: data
+    }),
+    [USER_CLEAR_ERROR]: (state) => ({
+        ...state,
+        error: null
     }),
     [USER_LOGOUT_SUCCEEDED]: () => {
         return {...initialState}

@@ -16,24 +16,8 @@
 
 @import "theme/custom-mixins";
 
-.title-section {
-  margin-bottom: 36px;
-  font-size: 2.25rem;
-  @include media-breakpoint-down(lg) {
-    font-size: 2rem;
-  }
-  @include media-breakpoint-down(sm) {
-    margin-bottom: 26px;
-    font-size: 1.75rem;
-  }
-}
-.title-section-min {
+.section-bottom {
   margin-bottom: 20px;
-  font-size: 1.65rem;
-  @include media-breakpoint-down(sm) {
-    margin-bottom: 16px;
-    font-size: 1.45rem;
-  }
 }
 
 .col-margin-bottom {

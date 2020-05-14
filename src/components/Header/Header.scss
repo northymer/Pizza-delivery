@@ -9,22 +9,31 @@
     height: $header-height;
     background-color: $color-business-main;
     z-index: 10;
-    &__auth {
+    color: #fff;
+    &__link {
         color: #fff;
-        display: flex;
-        align-items: flex-end;
-        > p {
-            > a {
-                color: #fff;
-            }
-            margin: 0;
-            > span {
-                cursor: pointer;
-            }
+        text-decoration: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        line-height: 1;
+        &:hover {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+            text-decoration: none;
         }
     }
+    &__sign {
+        &-delimiter {
+            margin: 0 5px;
+        }
+    }
+    &__auth {
+        margin-right: 20px;
+    }
     &__icons {
-        align-items: flex-end;
+        align-items: center;
         display: flex;
     }
     .icon {

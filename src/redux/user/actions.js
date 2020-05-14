@@ -11,6 +11,8 @@ export const USER_LOGIN_SUCCEEDED = 'USER_LOGIN_SUCCEEDED'
 export const USER_REGISTER_SUCCEEDED = 'USER_REGISTER_SUCCEEDED'
 export const USER_LOGOUT = 'USER_LOGOUT'
 export const USER_LOGOUT_SUCCEEDED = 'USER_LOGOUT_SUCCEEDED'
+export const USER_PLACE_ORDER_ERROR = 'USER_PLACE_ORDER_ERROR'
+export const USER_CLEAR_ERROR = 'USER_CLEAR_ERROR'
 
 const userCheckAuth = () => actionGenerator(USER_CHECK_AUTH)
 
@@ -27,7 +29,10 @@ const userLogout = () => actionGenerator(USER_LOGOUT)
 const userLogoutSucceeded = () => actionGenerator(USER_LOGOUT_SUCCEEDED)
 
 const userPutOrder = (data) => actionGenerator(USER_PLACE_ORDER, data)
-const userPutOrderSucceeded = () => actionGenerator(USER_PLACE_ORDER_SUCCEEDED)
+const userPutOrderSucceeded = (orders) => actionGenerator(USER_PLACE_ORDER_SUCCEEDED, orders)
+const userPutOrderError = (data) => actionGenerator(USER_PLACE_ORDER_ERROR, data)
+
+const userClearError = () => actionGenerator(USER_CLEAR_ERROR)
 
 export {
     userCheckAuth,
@@ -40,5 +45,7 @@ export {
     userLogout,
     userLogoutSucceeded,
     userPutOrder,
-    userPutOrderSucceeded
+    userPutOrderSucceeded,
+    userPutOrderError,
+    userClearError,
 }

@@ -6,6 +6,7 @@ import {CartItem} from '../../components/CartItem/CartItem'
 import {Button} from '../../components/Button/Button'
 import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
 import {rounded} from '../../utils/helperItems'
+import {SectionTitle} from '../../components/SectionTitle/SectionTitle'
 
 import './CartPage.scss'
 
@@ -39,7 +40,7 @@ const CartPage = (props) => {
     return (
         <div className='cart'>
             <ContainerBg>
-                <h1 className='title-section'>Cart</h1>
+                <SectionTitle title='Cart' />
                 <>
                     {
                         cart.map(item => (

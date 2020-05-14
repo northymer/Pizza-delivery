@@ -1,16 +1,34 @@
 const { Router } = require('express')
 const Order = require('../models/Order')
 const config = require('config')
+const {check, validationResult} = require('express-validator')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
-router.post('/placeOrder', auth, async (req, res) => {
+const textErrors = {
+    empty: 'Field must not be empty'
+}
+
+router.post('/placeOrder', auth,
+  [
+    check('form.email').not().isEmpty().withMessage(textErrors.empty),
+    check('form.phone').not().isEmpty().withMessage(textErrors.empty),
+    check('form.name').not().isEmpty().withMessage(textErrors.empty),
+  ],
+  async (req, res) => {
     try {
-        const { order } = req.body
-        console.log(order)
+        const { form } = req.body
+
+        console.log('form', form)
+
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() })
+        }
 
         const orders = new Order({
-            dishes: order,
+            form: form,
             user: req.user.userId
         })
 
@@ -28,8 +46,11 @@ router.post('/placeOrder', auth, async (req, res) => {
 
 router.get('/getOrders', auth, async (req, res) => {
     try {
+        console.log('headers', req.headers)
+        console.log('userId', req.user.userId)
         const orders = await Order.find({ user: req.user.userId })
-        res.json({orders: orders.dishes})
+        console.log(orders)
+        res.json({orders})
     } catch (e) {
         res.status(500).json({message: 'Something went wrong'})
     }
