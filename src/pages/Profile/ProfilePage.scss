@@ -1,0 +1,31 @@
+@import '../../theme/variables';
+
+.history {
+  &__item {
+    margin-bottom: 10px;
+    &-title {
+      padding: 5px 16px;
+      cursor: pointer;
+      background: $gray-200;
+    }
+    &-content {
+      transition: 0.2s;
+      &__hide {
+        height: 0;
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+    &-wrap {
+      padding: 10px 16px;
+      background: $gray-100;
+    }
+  }
+  &__cart {
+    margin-bottom: 10px;
+    &-img {
+      margin-right: 10px;
+      width: 20px;
+    }
+  }
+}

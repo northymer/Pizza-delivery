@@ -19,14 +19,14 @@ export const InputText = (props) => {
     <div className="form-input-text">
       <label htmlFor={name}>{title}</label>
       <input
-          value={value}
-          onChange={event => onChange(event)}
-          type={type}
-          className={`form-control validate ${errorClass}`}
-          id={name}
-          name={name}
-          placeholder={placeholder}
-          required={required}
+        value={value}
+        onChange={event => onChange(event)}
+        type={type}
+        className={`form-control validate ${errorClass}`}
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        required={required}
       />
       {error &&
         <div className="invalid-feedback">

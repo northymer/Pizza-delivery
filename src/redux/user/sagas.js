@@ -58,7 +58,6 @@ function* logoutUser() {
 
 function* getUserOrders(action) {
     try {
-        debugger
         const orders = yield call(apiGetUserOrders, action.payload)
         yield put(userGetOrdersSucceeded(orders))
     } catch (e) {
@@ -68,16 +67,13 @@ function* getUserOrders(action) {
 
 function* placeUserOrder(action) {
     try {
-        console.log(action)
-        debugger
         const response = yield call(apiPutUserOrder, action.payload)
-        console.log('response', response)
         if (!response.errors) {
             yield put(userPutOrderSucceeded())
+            yield put(clearCart())
         } else {
             yield put(userPutOrderError(response.errors))
         }
-        // yield put(clearCart())
     } catch (e) {
         console.log(e)
     }

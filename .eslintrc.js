@@ -21,5 +21,6 @@ module.exports = {
     "rules": {
         "quotes": ["warn", "single"],
         "semi": ["warn", "never"],
+        "indent": ["error", 2]
     }
 };

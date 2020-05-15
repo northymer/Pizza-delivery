@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -14,11 +14,13 @@ import AuthPage from './pages/AuthPage/AuthPage'
 
 
 import './App.scss'
+import {Alert} from "./components/Alert/Alert";
 
 function App() {
   const cart = useSelector(state => state.cart.cart)
   const userId = useSelector(state => state.user.user)
-    console.log(userId)
+    const message = useSelector(state => state.user.message)
+    const [success, setSuccess] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -26,15 +28,19 @@ function App() {
     setLocalstorage('cart', cart)
   }, [cart])
 
+    useEffect(() => {
+        setSuccess(message)
+    }, [message])
+
   useEffect(() => {
       dispatch(userCheckAuth())
-      if (userId) {}
   }, [])
 
     console.log(window.location)
 
   return (
     <div className="App">
+        <Alert text={success}/>
         <BrowserRouter>
             <Switch>
                 <Wrapper>

@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const Order = require('../models/Order')
+const jwt = require('jsonwebtoken')
 const config = require('config')
 const {check, validationResult} = require('express-validator')
 const auth = require('../middleware/auth.middleware')
@@ -9,7 +10,7 @@ const textErrors = {
     empty: 'Field must not be empty'
 }
 
-router.post('/placeOrder', auth,
+router.post('/placeOrder',
   [
     check('form.email').not().isEmpty().withMessage(textErrors.empty),
     check('form.phone').not().isEmpty().withMessage(textErrors.empty),
@@ -25,6 +26,16 @@ router.post('/placeOrder', auth,
 
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
+        }
+
+        const token = req.headers.authorization && req.headers.authorization.split(' ')[1]
+        let decoded
+
+        if (!token) {
+            return res.status(201).json({message: 'Success'})
+        } else {
+            decoded = jwt.verify(token, config.get('jwtSecret'))
+            req.user = decoded
         }
 
         const orders = new Order({

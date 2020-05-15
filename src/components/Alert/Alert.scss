@@ -1,0 +1,19 @@
+@import '../../theme/variables';
+
+.alert {
+  position: fixed;
+  top: 65px;
+  right: 30px;
+  z-index: 50;
+  padding: 8px 15px;
+  color: #fff;
+  max-width: 175px;
+  transition: 0.3s;
+  &-hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &-success {
+    background-color: $success;
+  }
+}
