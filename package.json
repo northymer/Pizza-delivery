@@ -30,8 +30,9 @@
     "sass": "^1.26.5"
   },
   "scripts": {
-    "start": "concurrently \"npm run build\" cross-env NODE_ENV=production node --prefix src/server server.js",
+    "start": "concurrently \"npm run build-prod\" cross-env NODE_ENV=production node --prefix src/server server.js",
     "build": "react-scripts build",
+    "build-prod": "serve -s build",
     "test": "react-scripts test",
     "server-start": "node ./src/server/server.js",
     "server-test": "nodemon ./src/server/server.js",
