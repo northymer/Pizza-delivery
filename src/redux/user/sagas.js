@@ -38,7 +38,6 @@ function* loginUser(action) {
         const user = yield call(apiLoginUser, action.payload)
         yield localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user))
         yield put(userLoginSucceeded(user))
-        yield window.location.pathname = '/'
     } catch (e) {
         console.log(e)
     }
