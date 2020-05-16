@@ -1,5 +1,6 @@
 const express = require('express')
 const config = require('config')
+const favicon = require('serve-favicon')
 const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
@@ -16,12 +17,10 @@ app.use('/api/auth', require('./src/server/routes/auth.routes'))
 app.use('/api/orders', require('./src/server/routes/orders.routes'))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, 'build')))
-  app.get('/favicon.ico', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'favicon.ico'))
-  })
+  app.use('/', express.static(path.join(process.cwd(), 'build')))
+  app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
   })
 }
 
