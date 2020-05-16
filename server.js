@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
   console.log('cwd', process.cwd())
   console.log('dirname', __dirname)
   app.use('/', express.static(path.join(process.cwd(), 'build')))
-  app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
+  app.use(favicon(path.join(process.cwd(), 'build', 'static', 'favicon.ico')))
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
   })
