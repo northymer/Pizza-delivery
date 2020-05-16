@@ -31,13 +31,13 @@
     "serve-favicon": "^2.5.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node src/server/server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
     "start-test": "react-scripts start",
     "build": "react-scripts build",
     "build-prod": "serve -s build",
     "test": "react-scripts test",
-    "server-start": "node src/server/server.js",
-    "server-test": "nodemon src/server/server.js",
+    "server-start": "node server.js",
+    "server-test": "nodemon server.js",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run server-test\" \"npm run start-test\""
   },
   "eslintConfig": {
