@@ -26,10 +26,10 @@ if (process.env.NODE_ENV === 'production') {
     //     res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
     //   }
     // )
-    app.get('/favicon.ico', (req, res) => {
-      console.log('favicon get received')
-      res.sendFile(path.resolve(process.cwd(), 'public', 'favicon.ico'))
-    })
+    // app.get('/favicon.ico', (req, res) => {
+    //   console.log('favicon get received')
+    //   res.sendFile(path.resolve(process.cwd(), 'public', 'favicon.ico'))
+    // })
 
     console.log('static shot')
     app.get('*', (req, res) => {
