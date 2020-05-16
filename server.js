@@ -14,23 +14,27 @@ app.use(cors())
 app.use(express.json({extended: true}))
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('cwd', process.cwd())
-  console.log('dirname', __dirname)
-  app.use('/', express.static(path.join(process.cwd(), 'build')))
-  // app.get('/', (req, res) => {
-  //     console.log(req)
-  //     res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
-  //   }
-  // )
-  app.get('/favicon.ico', (req, res) => {
-    console.log('favicon get received')
-    res.sendFile(path.resolve(process.cwd(), 'public', 'favicon.ico'))
-  })
+  try {
+    console.log('cwd', process.cwd())
+    console.log('dirname', __dirname)
+    app.use('/', express.static(path.join(process.cwd(), 'build')))
+    // app.get('/', (req, res) => {
+    //     console.log(req)
+    //     res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
+    //   }
+    // )
+    app.get('/favicon.ico', (req, res) => {
+      console.log('favicon get received')
+      res.sendFile(path.resolve(process.cwd(), 'public', 'favicon.ico'))
+    })
 
-  console.log('static shot')
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  })
+    console.log('static shot')
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+  } catch (e) {
+    console.log('reqerror', e)
+  }
 }
 
 async function start() {
