@@ -6,6 +6,8 @@ const cors = require('cors')
 
 const app = express()
 
+const PORT = config.get('port') || 5000
+
 app.use(cors())
 
 app.use(express.json({extended: true}))
@@ -19,8 +21,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   })
 }
-
-const PORT = config.get('port') || 5000
 
 async function start() {
   try {

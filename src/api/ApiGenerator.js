@@ -1,7 +1,8 @@
 import {getLocalstorage} from "../redux/helpers";
 import {USER_STORAGE_KEY} from "../redux/user/sagas";
+import config from 'config'
 
-const PREFIX = 'http://localhost:5000/api/'
+const PREFIX = `${config.get('baseUrl')}/api/`
 
 export class ApiGenerator {
     static HEADERS = {
