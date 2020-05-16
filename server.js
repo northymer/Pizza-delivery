@@ -13,6 +13,9 @@ app.use(cors())
 
 app.use(express.json({extended: true}))
 
+app.use('/api/auth', require('./src/server/routes/auth.routes'))
+app.use('/api/orders', require('./src/server/routes/orders.routes'))
+
 if (process.env.NODE_ENV === 'production') {
   try {
     console.log('cwd', process.cwd())
@@ -29,9 +32,9 @@ if (process.env.NODE_ENV === 'production') {
     })
 
     console.log('static shot')
-    // app.get('*', (req, res) => {
-    //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-    // })
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
   } catch (e) {
     console.log('reqerror', e)
   }
@@ -40,8 +43,6 @@ if (process.env.NODE_ENV === 'production') {
 async function start() {
   try {
     console.log('started')
-    app.use('/api/auth', require('./src/server/routes/auth.routes'))
-    app.use('/api/orders', require('./src/server/routes/orders.routes'))
     console.log('use part')
     await mongoose.connect(config.get('mongoUri'), {
       useNewUrlParser: true,
