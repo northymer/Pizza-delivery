@@ -17,6 +17,9 @@ app.use('/api/orders', require('./src/server/routes/orders.routes'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'build')))
+  app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'favicon.ico'))
+  })
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   })
