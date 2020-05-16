@@ -25,6 +25,7 @@ if (process.env.NODE_ENV === 'production') {
   })
   app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
   app.get('*', (req, res) => {
+    console.log(req)
     res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
   })
 }
@@ -38,7 +39,7 @@ async function start() {
     })
     app.listen(PORT, () => console.log(`app has been started on port ${PORT}`))
   } catch (e) {
-    console.log('Server Error')
+    console.log('Server Error', e)
     process.exit(1)
   }
 }
