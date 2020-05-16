@@ -20,12 +20,11 @@ if (process.env.NODE_ENV === 'production') {
   //   console.log(req)
   //   res.sendFile(path.resolve(process.cwd(), 'build', 'index.html'))
   // })
-  app.use('/', express.static(path.join(process.cwd(), 'build')))
-
   app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.resolve(process.cwd(), 'public', 'favicon.ico'))
   })
-  app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
+  app.use('/', express.static(path.join(process.cwd(), 'build')))
+  // app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
 }
 
 async function start() {
