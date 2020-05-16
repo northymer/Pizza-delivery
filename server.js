@@ -7,7 +7,7 @@ const cors = require('cors')
 
 const app = express()
 
-const PORT = config.get('port') || 80
+const PORT = process.env.PORT ||3000
 
 app.use(cors())
 
