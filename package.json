@@ -11,6 +11,7 @@
     "classnames": "^2.2.6",
     "config": "^3.3.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.4.1",
     "file-loader": "^6.0.0",
@@ -29,12 +30,12 @@
     "sass": "^1.26.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env NODE_ENV=production node ./src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "server-start": "node ./src/server/server.js",
     "server-test": "nodemon ./src/server/server.js",
-    "dev": "concurrently \"npm run server-test\" \"npm run start\""
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server-test\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"
