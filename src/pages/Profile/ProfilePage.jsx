@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
 import {SectionTitle} from '../../components/SectionTitle/SectionTitle'
@@ -14,6 +15,7 @@ import './ProfilePage.scss'
 export const ProfilePage = () => {
   const user = useSelector(state => state.user.user)
   const orderList = useSelector(state => state.user.orderList)
+  const history = useHistory()
 
   console.log(orderList)
   const dispatch = useDispatch()
@@ -37,7 +39,8 @@ export const ProfilePage = () => {
   }
 
   if (!user) {
-    return ( <Loading/> )
+    history.push('/')
+    // return ( <Loading/> )
   }
   return (
     <div className='profile'>
