@@ -40,7 +40,7 @@ export const ProfilePage = () => {
 
   if (!user) {
     history.push('/')
-    // return ( <Loading/> )
+    return ( <Loading/> )
   }
   return (
     <div className='profile'>
