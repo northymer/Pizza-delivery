@@ -2,10 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Header.scss'
 import { ReactComponent as CartIcon } from '../../assets/icons/commerce-and-shopping.svg'
-import {connect, useDispatch, useSelector} from 'react-redux'
-import {userGetOrders, userLogout} from '../../redux/user/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { userLogout } from '../../redux/user/actions'
 
-const Header = ({cart}) => {
+const Header = () => {
+  const cart = useSelector(state => state.cart.cart)
   const amountOfItemsInCart = cart.length
   const user = useSelector(state => state.user.user)
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ const Header = ({cart}) => {
     <div className='header'>
       <div className='header__content container'>
         <Link to="/" className='header__logo-link'>
-                    Pizza <span>express</span>
+          Pizza <span>express</span>
         </Link>
         <div className='header__icons'>
           <div className='header__auth header__margin'>
@@ -30,11 +31,11 @@ const Header = ({cart}) => {
             }
           </div>
           {user &&
-                    <Link to="/profile" className='header__link header__margin'>Profile</Link>}
+          <Link to="/profile" className='header__link header__margin'>Profile</Link>}
           <Link to="/cart" className='icon cart-icon header__margin'>
             <CartIcon />
             {!!amountOfItemsInCart &&
-                        <div className='cart-indicator'>{amountOfItemsInCart}</div>
+            <div className='cart-indicator'>{amountOfItemsInCart}</div>
             }
           </Link>
         </div>
@@ -43,8 +44,4 @@ const Header = ({cart}) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  cart: state.cart.cart,
-})
-
-export default connect(mapStateToProps, () => ({}))(Header)
+export default Header

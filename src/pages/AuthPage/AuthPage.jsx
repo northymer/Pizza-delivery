@@ -1,26 +1,24 @@
-import React, {useState} from 'react'
-import { connect } from 'react-redux'
-import {Button} from '../../components/Button/Button'
-import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
-import {InputText} from '../../components/Form/InputText'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { ContainerBg } from '../../containers/ContainerBg/ContainerBg'
 import { useParams, useHistory } from 'react-router-dom'
 import './AuthPage.scss'
-import {userLogin, userRegister} from '../../redux/user/actions'
-import { compose } from 'ramda'
+import { userLogin, userRegister } from '../../redux/user/actions'
 import RegisterUserContainer from '../../containers/RegisterUserContainer/RegisterUserContainer'
 import LoginUserContainer from '../../containers/LoginUserContainer/LoginUserContainer'
 
-const AuthPage = (props) => {
+const AuthPage = () => {
   const { authMethod } = useParams()
+  const dispatch = useDispatch()
   const history = useHistory()
   const isLogin = authMethod === 'login'
   const handleSubmit = async (data) => {
     try {
       if (isLogin) {
-        await props.userLogin(data)
+        await dispatch(userLogin(data))
         history.push('/')
       } else {
-        await props.userRegister(data)
+        await dispatch(userRegister(data))
         history.push('/auth/login')
       }
     } catch (e) {
@@ -42,13 +40,4 @@ const AuthPage = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({})
-
-const mapDispatchToProps = dispatch => ({
-  userRegister: (data) => dispatch(userRegister(data)),
-  userLogin: (data) => dispatch(userLogin(data))
-})
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(AuthPage)
+export default AuthPage

@@ -19,6 +19,7 @@
     "moment": "^2.25.3",
     "mongoose": "^5.9.13",
     "node-sass": "^4.14.1",
+    "prop-types": "^15.7.2",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -38,12 +39,11 @@
     "test": "react-scripts test",
     "server-start": "node server.js",
     "server-test": "nodemon server.js",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run server-test\" \"npm run start-test\""
+    "dev": "cross-env NODE_ENV=development PORT=8080 concurrently \"npm run server-test\" \"npm run start-test\""
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",

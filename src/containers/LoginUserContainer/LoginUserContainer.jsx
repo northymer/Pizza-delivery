@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import {InputText} from '../../components/Form/InputText'
-import {Button} from '../../components/Button/Button'
+import PropTypes from 'prop-types'
+import { InputText } from '../../components/Form/InputText'
+import { Button } from '../../components/Button/Button'
 
-const LoginUserContainer = ({onSubmit}) => {
+const LoginUserContainer = ({ onSubmit }) => {
   const [form, changeForm] = useState({
     login: '',
     password: '',
   })
-  const {login, password} = form
+  const { login, password } = form
   const [error, changeError] = useState(null)
   const handleChange = (event) => {
-    changeForm({...form, [event.target.name]: event.target.value})
+    changeForm({ ...form, [event.target.name]: event.target.value })
   }
   const handleSubmit = () => {
     changeError(null)
-    onSubmit({email: login, password})
+    onSubmit({ email: login, password })
   }
   return (
     <form>
@@ -30,10 +31,14 @@ const LoginUserContainer = ({onSubmit}) => {
         <Button onClick={handleSubmit}>Login</Button>
       </div>
       {error &&
-            <div>{error}</div>
+      <div>{error}</div>
       }
     </form>
   )
+}
+
+LoginUserContainer.propTypes = {
+  onSubmit: PropTypes.func,
 }
 
 export default LoginUserContainer

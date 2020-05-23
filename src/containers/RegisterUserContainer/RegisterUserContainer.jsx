@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
-import {InputText} from '../../components/Form/InputText'
-import {Button} from '../../components/Button/Button'
+import PropTypes from 'prop-types'
+import { InputText } from '../../components/Form/InputText'
+import { Button } from '../../components/Button/Button'
 
-const RegisterUserContainer = ({onSubmit}) => {
+const RegisterUserContainer = ({ onSubmit }) => {
   const [form, changeForm] = useState({
     name: '',
     email: '',
     password: '',
     repeatPassword: '',
   })
-  const {name, email, password, repeatPassword} = form
+  const { name, email, password, repeatPassword } = form
   const [error, changeError] = useState(null)
   const handleChange = (event) => {
-    changeForm({...form, [event.target.name]: event.target.value})
+    changeForm({ ...form, [event.target.name]: event.target.value })
   }
   const handleSubmit = () => {
     changeError(null)
     if (password === repeatPassword) {
-      onSubmit({name, email, password})
+      onSubmit({ name, email, password })
     } else {
       changeError('Passwords should match')
     }
@@ -44,10 +45,14 @@ const RegisterUserContainer = ({onSubmit}) => {
         <Button onClick={handleSubmit}>Register</Button>
       </div>
       {error &&
-                <div>{error}</div>
+      <div>{error}</div>
       }
     </form>
   )
+}
+
+RegisterUserContainer.propTypes = {
+  onSubmit: PropTypes.func,
 }
 
 export default RegisterUserContainer

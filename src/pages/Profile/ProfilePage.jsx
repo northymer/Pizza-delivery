@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import {ContainerBg} from '../../containers/ContainerBg/ContainerBg'
-import {SectionTitle} from '../../components/SectionTitle/SectionTitle'
-import {Loading} from '../../components/Loading/Loading'
-import {SectionSubTitle} from '../../components/SectionSubTitle/SectionSubTitle'
-import {userGetOrders} from '../../redux/user/actions'
-import {getTitleItem} from '../../utils/helperItems'
+import { ContainerBg } from '../../containers/ContainerBg/ContainerBg'
+import { SectionTitle } from '../../components/SectionTitle/SectionTitle'
+import { Loading } from '../../components/Loading/Loading'
+import { SectionSubTitle } from '../../components/SectionSubTitle/SectionSubTitle'
+import { userGetOrders } from '../../redux/user/actions'
+import { getTitleItem } from '../../utils/helperItems'
 
 import './ProfilePage.scss'
 
@@ -25,7 +25,6 @@ export const ProfilePage = () => {
   }, [])
 
   const slide = (e) => {
-    console.log('e', e.target.nextSibling.scrollHeight)
     const content = e.target.nextSibling
     const hideClass = 'history__item-content__hide'
     if (content.classList.contains(hideClass)) {

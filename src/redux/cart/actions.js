@@ -1,4 +1,4 @@
-import { actionGenerator } from "../helpers"
+import { actionGenerator } from '../helpers'
 
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
@@ -13,8 +13,8 @@ const changeAmountInCart = (id, amount) => actionGenerator(CHANGE_AMOUNT_IN_CART
 const clearCart = () => actionGenerator(CLEAR_CART)
 
 export {
-    addToCart,
-    removeFromCart,
-    changeAmountInCart,
-    clearCart,
+  addToCart,
+  removeFromCart,
+  changeAmountInCart,
+  clearCart,
 }

@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import './Alert.scss'
@@ -37,4 +38,9 @@ export const Alert = (props) => {
       </div>
     </div>
   )
+}
+
+Alert.propTypes = {
+  text: PropTypes.string,
+  color: PropTypes.string,
 }

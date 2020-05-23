@@ -12,7 +12,7 @@ import {
   USER_PLACE_ORDER_SUCCEEDED, USER_LOGOUT_ERROR,
   USER_PLACE_ORDER_ERROR, USER_CLEAR_ERROR,
 } from './actions'
-import {getLocalstorage, setLocalstorage} from '../helpers'
+import { getLocalstorage, setLocalstorage } from '../helpers'
 
 const localstorage = getLocalstorage('cart')
 
@@ -65,7 +65,7 @@ const handlers = {
     error: null
   }),
   [USER_LOGOUT_SUCCEEDED]: () => {
-    return {...initialState}
+    return { ...initialState }
   },
   DEFAULT: state => state
 }

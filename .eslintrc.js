@@ -21,6 +21,11 @@ module.exports = {
     "rules": {
         "quotes": ["warn", "single"],
         "semi": ["warn", "never"],
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "react/jsx-indent": ["error", 2],
+        "object-curly-spacing" : ["error", "always", {
+            "objectsInObjects": true,
+            "arraysInObjects": true,
+        }]
     }
 };

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const Select = (props) => {
   const {
@@ -20,4 +21,12 @@ export const Select = (props) => {
       </select>
     </>
   )
+}
+
+Select.propTypes = {
+  title: PropTypes.string,
+  required: PropTypes.bool,
+  name: PropTypes.string,
+  options: PropTypes.array,
+  onClick: PropTypes.func,
 }

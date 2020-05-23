@@ -1,4 +1,4 @@
-import { actionGenerator } from "../helpers"
+import { actionGenerator } from '../helpers'
 
 export const USER_CHECK_AUTH = 'USER_CHECK_AUTH'
 export const USER_LOGIN = 'USER_LOGIN'
@@ -35,17 +35,17 @@ const userPutOrderError = (data) => actionGenerator(USER_PLACE_ORDER_ERROR, data
 const userClearError = () => actionGenerator(USER_CLEAR_ERROR)
 
 export {
-    userCheckAuth,
-    userLogin,
-    userLoginSucceeded,
-    userRegister,
-    userRegisterSucceeded,
-    userGetOrders,
-    userGetOrdersSucceeded,
-    userLogout,
-    userLogoutSucceeded,
-    userPutOrder,
-    userPutOrderSucceeded,
-    userPutOrderError,
-    userClearError,
+  userCheckAuth,
+  userLogin,
+  userLoginSucceeded,
+  userRegister,
+  userRegisterSucceeded,
+  userGetOrders,
+  userGetOrdersSucceeded,
+  userLogout,
+  userLogoutSucceeded,
+  userPutOrder,
+  userPutOrderSucceeded,
+  userPutOrderError,
+  userClearError,
 }
