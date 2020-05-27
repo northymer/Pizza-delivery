@@ -40,10 +40,28 @@ function App() {
 
   return (
     <div className="App">
-      <div className="List">
-        <div className="List__header"></div>
-        <div className="List__body"></div>
-      </div>
+      <Alert text={success}/>
+      <BrowserRouter>
+        <Switch>
+          <Wrapper>
+            <Route exact path="/">
+              <MainPage />
+            </Route>
+            <Route path="/checkout">
+              <CheckoutPage />
+            </Route>
+            <Route exact path="/cart">
+              <CartPage />
+            </Route>
+            <Route exact path="/auth/:authMethod">
+              <AuthPage/>
+            </Route>
+            <Route exact path="/profile">
+              <ProfilePage/>
+            </Route>
+          </Wrapper>
+        </Switch>
+      </BrowserRouter>
     </div>
   )
 }

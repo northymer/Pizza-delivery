@@ -1,6 +1,6 @@
 {
-  "port": 8080,
+  "port": 5000,
   "jwtSecret" : "conskirilin pizza",
   "mongoUri": "mongodb+srv://conskirilin:jmg11khm@cluster0-neiuq.azure.mongodb.net/app?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:8080"
+  "baseUrl": "http://localhost:5000"
 }
